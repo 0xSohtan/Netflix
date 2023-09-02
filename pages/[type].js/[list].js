@@ -7,7 +7,7 @@ import styles from '@/styles/Home.module.css'
 
 import Episode from '@/public/assets/images/Episodes.jpeg'
 
-export default function typeList() {
+export default function TypeList() {
 
     const [episodes, setEpisodes] = useState([]);
     const [loading, setLoading] = useState(true);
