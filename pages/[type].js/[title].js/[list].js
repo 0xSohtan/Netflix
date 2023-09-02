@@ -36,7 +36,7 @@ export default function List() {
                     key={episode.id}
                     className={styles.episodeCard}
                 >
-                    <Link href={`http://localhost:3000/${ type }/${ title }/episode/${episode.id}`}>
+                    <Link href={`/${ type }/${ title }/episode/${episode.id}`}>
                         <Image
                             src={episode.thumbnail || Episode}
                             alt='Episode'
