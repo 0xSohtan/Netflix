@@ -4,6 +4,7 @@ import styles from '@/styles/Home.module.css'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
+import Head from 'next/head';
 
 import Episode from '@/public/assets/images/Episodes.jpeg'
 
@@ -18,7 +19,7 @@ export default function List() {
     useEffect(() => {
         fetchEpisodes()
             .then(data => {
-                setEpisodes(data.series[0].episode);
+                setEpisodes(data);
                 setLoading(false);
             })
             .catch(error => {
@@ -29,26 +30,35 @@ export default function List() {
 
     if (loading) return <div>Lade Episoden...</div>;
 
+    const Item = episodes[type][0][type]
+
     return (
-        <div className={styles.episodeGrid}>
-            {episodes.map((episode) => (
-                <li
-                    key={episode.id}
-                    className={styles.episodeCard}
-                >
-                    <Link href={`/${ type }/${ title }/episode/${episode.id}`}>
-                        <Image
-                            src={episode.thumbnail || Episode}
-                            alt='Episode'
-                            width={300}
-                            height={400}
-                            priority
-                        />
-                        <p>{episode.title}</p>
-                        <p>{episode.description}</p>
-                    </Link>
-                </li>
-            ))}
-        </div>
+        <>
+            <Head>
+                <title>{episodes[type][0].title}</title>
+                <meta name="description" content={episodes[type][0].description} />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                {/* <link rel="icon" href="/favicon.ico" /> */}
+            </Head>
+            <div className={styles.episodeGrid}>
+                {Item.map((episode) => (
+                    <li
+                        key={episode.id}
+                        className={styles.episodeCard}
+                    >
+                        <Link href={`/${type}/${title}/episode/${episode.id}`}>
+                            <Image
+                                src={episode.thumbnail || Episode}
+                                alt='Episode'
+                                width={300}
+                                height={400}
+                                priority
+                            />
+                            <p>{episode.title}</p>
+                        </Link>
+                    </li>
+                ))}
+            </div>
+        </>
     );
 }
