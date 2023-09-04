@@ -58,7 +58,7 @@
 html,
 body {
   overflow-x: hidden;
-  background-color: black;
+  background-color: #141414;
   color: white;
 }
 
@@ -70,3 +70,49 @@ a {
 li {
   list-style: none;
 }
+
+/* Global Styles (z.B. in einem global.css oder _app.js in Next.js) */
+
+h1 {
+  font-size: 2.5rem; /* 40px */
+  font-weight: bold;
+  color: #E50914; /* Netflix-Rot */
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 2rem; /* 32px */
+  font-weight: bold;
+  color: #FFFFFF;
+  margin-bottom: 0.75rem;
+}
+
+h3 {
+  font-size: 1.75rem; /* 28px */
+  font-weight: bold;
+  color: #FFFFFF;
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  font-size: 1.5rem; /* 24px */
+  font-weight: bold;
+  color: #FFFFFF;
+  margin-bottom: 0.5rem;
+}
+
+h5 {
+  font-size: 1.25rem; /* 20px */
+  font-weight: bold;
+  color: #FFFFFF;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: 1rem; /* 16px */
+  font-weight: normal;
+  color: #B8B8B8; /* Ein hellerer Grauton für den Text */
+  margin-bottom: 1rem;
+  line-height: 1.5; /* Für bessere Lesbarkeit */
+}
+

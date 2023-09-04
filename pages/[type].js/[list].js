@@ -39,7 +39,7 @@ export default function TypeList() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
-      <div className={styles.episodeGrid}>
+      <div className={styles.episodeGrid} style={{ marginTop: 100 }}>
         <li
           className={styles.episodeCard}
         >
@@ -52,7 +52,6 @@ export default function TypeList() {
               priority
             />
             <p>{test.title}</p>
-            <p>{test.description || 'Test'}</p>
           </Link>
         </li>
       </div>
