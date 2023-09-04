@@ -3,12 +3,13 @@ import { fetchEpisodes } from '@/utils/apiHelpers';  // Pfad zu deiner api.js-Da
 import { useRouter } from 'next/router';
 import VideoPlayer from '@/components/VideoPlayer';
 import Head from 'next/head';
+import styles from '@/styles/Home.module.css'
 
 function Episode() {
     const [episodes, setEpisodes] = useState([]);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
-    const { type, title, id: episodeID } = router.query;
+    const { type, id: episodeID } = router.query;
 
     useEffect(() => {
         fetchEpisodes()
@@ -35,14 +36,13 @@ function Episode() {
                 <title>{showAll.title}</title>
                 <meta name="description" content={showAll.description} />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                {/* <link rel="icon" href="/favicon.ico" /> */}
             </Head>
             <div style={{ marginTop: 100 }}>
                 <div>
                     <h1>{showAll.title}</h1>
                     <p>{showAll.description}</p>
                     <p>Folge: {showAll.id}</p>
-                    <VideoPlayer src={showAll.url} />
+                    <VideoPlayer src={showAll.url}/>
                 </div>
             </div>
         </>

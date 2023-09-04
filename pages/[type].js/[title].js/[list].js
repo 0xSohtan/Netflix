@@ -40,7 +40,7 @@ export default function List() {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 {/* <link rel="icon" href="/favicon.ico" /> */}
             </Head>
-            <div className={styles.episodeGrid}>
+            <div className={styles.episodeGrid} style={{ marginTop: 100 }}>
                 {Item.map((episode) => (
                     <li
                         key={episode.id}
