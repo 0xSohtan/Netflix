@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
+import Header from '@/components/header';
 
 import Episode from '@/public/assets/images/Episodes.jpeg'
 
@@ -40,6 +41,8 @@ export default function List() {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 {/* <link rel="icon" href="/favicon.ico" /> */}
             </Head>
+
+            <Header />
             <div className={styles.episodeGrid} style={{ marginTop: 100 }}>
                 {Item.map((episode) => (
                     <li

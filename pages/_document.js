@@ -1,5 +1,4 @@
 import { Html, Head, Main, NextScript } from 'next/document'
-import Header from '@/components/header'
 
 export default function Document() {
   return (
@@ -8,7 +7,6 @@ export default function Document() {
         <link rel="shortcut icon" href='/assets/images/Netflix.ico' />
       </Head>
       <body>
-        <Header />
         <Main />
         <NextScript />
       </body>

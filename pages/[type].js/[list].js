@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css'
+import Header from '@/components/header';
 
 import Episode from '@/public/assets/images/Episodes.jpeg'
 
@@ -39,6 +40,8 @@ export default function TypeList() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
+      
+      <Header />
       <div className={styles.episodeGrid} style={{ marginTop: 100 }}>
         <li
           className={styles.episodeCard}
