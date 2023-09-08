@@ -128,11 +128,15 @@ p {
   /* Für bessere Lesbarkeit */
 }
 
+a {
+  cursor: pointer;
+}
+
 /* video {
   width: 100%;
 } */
 
-.video { 
+.video {
   width: 100vw;
   height: 100vh;
 }
@@ -141,7 +145,8 @@ p {
   display: flex;
   align-items: center;
   gap: .5rem;
-  padding: .25rem;
+  padding: .5rem;
+  flex-grow: 1;
 }
 
 .video_container {
@@ -168,7 +173,7 @@ p {
 .video_container:hover .video_controls_container,
 .video_container:focus-within .video_controls_container,
 .video_container.paused .video_controls_container {
-    opacity: 1;
+  opacity: 1;
 }
 
 .video_controls_container .controls {
@@ -207,18 +212,17 @@ p {
 }
 
 .video_container.full_screen {
-    max-width: initial;
-    width: 100%;
+  max-width: initial;
+  width: 100%;
 }
 
 .video_container.full_screen {
-    max-height: 100vh;
+  max-height: 100vh;
 }
 
 .volume_container {
   display: flex;
   align-items: center;
-  flex-grow: 1;
 }
 
 .volume_slider {
@@ -248,7 +252,6 @@ p {
 
 .timeline {
   background-color: rgba(100, 100, 100, .5);
-  height: 8px;
   width: 90%;
 }
 
@@ -256,44 +259,48 @@ p {
 
 /* Der eigentliche Slider */
 .timeline-slider {
-  -webkit-appearance: none;  /* Entfernt den Standard-Browser-Stil */
+  -webkit-appearance: none;
   appearance: none;
   width: 90%;
-  height: 4px;  /* Höhe des Sliders */
-  background: #555;  /* Hintergrundfarbe des Sliders */
-  outline: none;  /* Entfernt den Fokus-Umriss */
-  opacity: 0.7;  /* Transparenz des Sliders */
-  transition: opacity .2s;  /* Glatter Übergang für Hover-Effekte */
-  cursor: pointer;  /* Zeigt den Zeiger-Cursor an, wenn man darüber fährt */
+  height: 12px;
+  background: #333;  /* Dunkle Farbe für den nicht gefüllten Teil */
+  outline: none;
+  border-radius: 2px;
+  transition: background 0.15s;
 }
 
 /* Stil für den Slider, wenn man darüber fährt */
 .timeline-slider:hover {
-  opacity: 1;  /* Macht den Slider beim Darüberfahren weniger transparent */
+  opacity: 1;
+  /* Macht den Slider beim Darüberfahren weniger transparent */
 }
 
 /* Stil für den Daumen (der bewegliche Punkt auf dem Slider) */
 .timeline-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;  /* Entfernt den Standard-Browser-Stil */
+  -webkit-appearance: none;
   appearance: none;
-  width: 20px;  /* Breite des Daumens */
-  height: 20px;  /* Höhe des Daumens */
-  background: #000000;  /* Netflix-Rot für den Daumen */
-  cursor: pointer;  /* Zeigt den Zeiger-Cursor an, wenn man darüber fährt */
-  border-radius: 50%;  /* Macht den Daumen rund */
-  transition: background .2s;  /* Glatter Übergang für Hover-Effekte */
+  width: 24px;
+  height: 24px;
+  background: #E50914;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-top: -6px; /* Damit der Daumen zentriert ist */
+  transition: background .2s;
 }
 
 /* Stil für den Daumen, wenn man darüber fährt oder ihn drückt */
 .timeline-slider::-webkit-slider-thumb:hover,
 .timeline-slider::-webkit-slider-thumb:active {
-  background: #FF0A16;  /* Ein helleres Rot für den Hover-/Aktivzustand */
+  background: #FF0A16;
+  /* Ein helleres Rot für den Hover-/Aktivzustand */
 }
 
-/* Stil für den gefüllten Teil des Sliders links vom Daumen */
 .timeline-slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 12px;
   cursor: pointer;
   background: #E50914;  /* Netflix-Rot für den gefüllten Teil */
+  border-radius: 2px;
 }
 
 /* Für Firefox (Daumen) */

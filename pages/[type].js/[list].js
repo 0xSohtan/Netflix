@@ -32,6 +32,11 @@ export default function TypeList() {
 
   const test = episodes[type] ? episodes[type][0] : [];
 
+  function truncateTitle(title, maxLength = 30) {
+    if (title.length <= maxLength) return title;
+    return title.slice(0, maxLength) + '...';
+  }
+
   return (
     <>
       <Head>
@@ -40,7 +45,7 @@ export default function TypeList() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
-      
+
       <Header />
       <div className={styles.episodeGrid} style={{ marginTop: 100 }}>
         <li
@@ -52,9 +57,10 @@ export default function TypeList() {
               alt='Episode'
               width={300}
               height={400}
+              className={styles.episodeImage}
               priority
             />
-            <p>{test.title}</p>
+            <p title={test.title}>{truncateTitle(test.title)}</p>
           </Link>
         </li>
       </div>

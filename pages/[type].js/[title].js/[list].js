@@ -31,7 +31,12 @@ export default function List() {
 
     if (loading) return <div>Lade Episoden...</div>;
 
-    const Item = episodes[type][0][type]
+    const Item = episodes[type][0][type];
+
+    function truncateTitle(title, maxLength = 30) {
+        if (title.length <= maxLength) return title;
+        return title.slice(0, maxLength) + '...';
+    }
 
     return (
         <>
@@ -55,9 +60,10 @@ export default function List() {
                                 alt='Episode'
                                 width={300}
                                 height={400}
+                                className={styles.episodeImage}
                                 priority
                             />
-                            <p>{episode.title}</p>
+                            <p title={episode.title}>{truncateTitle(episode.title)}</p>
                         </Link>
                     </li>
                 ))}

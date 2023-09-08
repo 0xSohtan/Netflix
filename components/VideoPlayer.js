@@ -13,6 +13,7 @@ function VideoPlayer({ src, title, id, name }) {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [controlsVisible, setControlsVisible] = useState(true);
   const videoContainerRef = useRef(null);
+  const [playbackRate, setPlaybackRate] = useState(1); // Anfangsgeschwindigkeit ist 1x
   let hideControlsTimeout;
 
   useEffect(() => {
@@ -51,6 +52,9 @@ function VideoPlayer({ src, title, id, name }) {
         case "arrowright":
         case "l":
           handleSkip(5);
+          break;
+        case "b":
+          goBack();
           break;
       }
     };
@@ -102,11 +106,27 @@ function VideoPlayer({ src, title, id, name }) {
 
   const handleFullScreen = () => {
     if (document.fullscreenElement == null) {
-      videoRef.current.requestFullscreen();
+      videoContainerRef.current.requestFullscreen();
     } else {
       document.exitFullscreen()
     }
     setIsFullscreen(!isFullscreen);
+  };
+
+  function truncateTitle(title, maxLength = 30) {
+    if (title.length <= maxLength) return title;
+    return title.slice(0, maxLength) + '...';
+  }
+
+  const changePlaybackSpeed = () => {
+    let newPlaybackRate = playbackRate + 0.25;
+    if (newPlaybackRate > 2) {
+      newPlaybackRate = 1; // Startet den Rückwärtsmodus
+    } else if (newPlaybackRate < 1) {
+      newPlaybackRate = 1.25; // Startet den Vorwärtsmodus
+    }
+    setPlaybackRate(newPlaybackRate);
+    videoRef.current.playbackRate = newPlaybackRate;
   };
 
   return (
@@ -140,7 +160,7 @@ function VideoPlayer({ src, title, id, name }) {
 
           <div className='controls'>
 
-            <button onClick={goBack}>Zurück</button>
+            <a onClick={goBack}>Zurück</a>
 
             <button onClick={togglePlay}>{isPlaying ? (
               <svg className="pause-icon" viewBox="0 0 24 24">
@@ -180,22 +200,22 @@ function VideoPlayer({ src, title, id, name }) {
             </div>
 
             <div className='video_info'>
-              <p style={{ color: 'white' }}>{name}</p>
+              <p style={{ color: 'white' }} title={name}>{truncateTitle(name)}</p>
               <p>Episode: {id}</p>
-              <p>{title}</p>
+              <p title={title}>{truncateTitle(title)}</p>
             </div>
 
-            <button className='speed_btn wide_btn'>
-              1x
+            <button className='speed_btn wide_btn' onClick={changePlaybackSpeed}>
+              {playbackRate}x
             </button>
 
             <button onClick={handleFullScreen}>{isFullscreen ? (
-              <svg className="open" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
-              </svg>
-            ) : (
               <svg className="close" viewBox="0 0 24 24">
                 <path fill="currentColor" d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z" />
+              </svg>
+            ) : (
+              <svg className="open" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
               </svg>
             )}</button>
           </div>

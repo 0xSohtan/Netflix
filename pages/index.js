@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import { useState, useEffect } from 'react';
+import { fetchEpisodes } from '@/utils/apiHelpers';
 import Link from 'next/link';
 import Header from '@/components/header';
 
@@ -11,12 +12,11 @@ import DetektivConan from '@/public/assets/images/DetektivConan.jpeg'
 export default function Home() {
   const [episodes, setEpisodes] = useState([]);
   const [links, setLink] = useState([]);
-  const [movies, setMovie] = useState([]); 
-  const [infos, setInfos] = useState([]); 
+  const [movies, setMovie] = useState([]);
+  const [infos, setInfos] = useState([]);
 
   useEffect(() => {
-    fetch('/api/list')  // Annahme, dass dies der Endpunkt ist, um alle Episoden zu erhalten
-      .then(response => response.json())
+    fetchEpisodes()  // Annahme, dass dies der Endpunkt ist, um alle Episoden zu erhalten
       .then(data => {
         setEpisodes(data.series[0].series);
         setLink(data.series[0]);
@@ -45,6 +45,11 @@ export default function Home() {
 
   const randomEpisode = shuffleArray([...episodes]).slice(0, 6);
   const randomMovie = shuffleArray([...movies]).slice(0, 6);
+
+  function truncateTitle(title, maxLength = 30) {
+    if (title.length <= maxLength) return title;
+    return title.slice(0, maxLength) + '...';
+  }
 
   return (
     <>
@@ -85,19 +90,20 @@ export default function Home() {
             >
               <Link href={`/${links.type}/${links.link_url}/episode/${episode.id}`}>
                 <Image
-                  src={episode.thumbnail || Episode}
-                  alt='Episode'
                   width={300}
                   height={400}
+                  src={episode.thumbnail || Episode}
+                  alt='Episode'
+                  className={styles.episodeImage}
                   priority
                 />
-                <p>{episode.title}</p>
+                <p title={episode.title}>{truncateTitle(episode.title)}</p>
               </Link>
             </li>
           ))}
         </div>
 
-        <div className={styles.info}>
+        <div className={styles.info} style={{ marginTop: '50px'}}>
           <h4>
             {infos.title}
           </h4>
@@ -115,12 +121,13 @@ export default function Home() {
               <Link href={`/${infos.type}/${infos.link_url}/episode/${episode.id}`}>
                 <Image
                   src={episode.thumbnail || Episode}
+                  className={styles.episodeImage}
                   alt='Episode'
                   width={300}
                   height={400}
                   priority
                 />
-                <p>{episode.title}</p>
+                <p title={episode.title}>{truncateTitle(episode.title)}</p>
               </Link>
             </li>
           ))}
