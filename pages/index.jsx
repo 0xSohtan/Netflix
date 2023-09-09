@@ -4,7 +4,7 @@ import styles from '@/styles/Home.module.css'
 import { useState, useEffect } from 'react';
 import { fetchEpisodes } from '@/utils/apiHelpers';
 import Link from 'next/link';
-import Header from '@/components/Header';
+import Header from '@/components/header';
 
 import Episode from '@/public/Episodes.jpeg'
 import DetektivConan from '@/public/DetektivConan.jpeg'
