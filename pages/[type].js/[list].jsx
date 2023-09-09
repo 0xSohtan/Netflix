@@ -28,7 +28,13 @@ export default function TypeList() {
       });
   }, []);
 
-  if (loading) return <div>Lade Episoden...</div>;
+  if (loading) return <div style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100vh'
+  }}>Lade Episoden...</div>;
 
   const test = episodes[type] ? episodes[type][0] : [];
 

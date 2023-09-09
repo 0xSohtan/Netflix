@@ -8,7 +8,7 @@ function Episode() {
     const [episodes, setEpisodes] = useState([]);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
-    const { type, title ,id: episodeID } = router.query;
+    const { type, title, id: episodeID } = router.query;
 
     useEffect(() => {
         fetchEpisodes()
@@ -25,7 +25,9 @@ function Episode() {
     if (loading) return <div style={{
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: '100%',
+        height: '100vh'
     }}>Lade Episoden...</div>;
 
     const test = episodes[type][0][type];
@@ -33,7 +35,13 @@ function Episode() {
     const showAll = test.find(test => test.id === Number(episodeID));
     const showAll2 = test2.find(test2 => test2.link_url === String(title));
 
-    if (!showAll) return <div>Episode mit ID {episodeID} nicht gefunden</div>;
+    if (!showAll) return <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100vh'
+    }}>Episode mit ID {episodeID} nicht gefunden</div>;
 
     return (
         <>
@@ -41,13 +49,11 @@ function Episode() {
                 <title>{showAll.title}</title>
                 <meta name="description" content={showAll.description} />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
             </Head>
             <div>
                 <div>
-                    {/* <h1>{showAll.title}</h1>
-                    <p>{showAll.description}</p>
-                    <p>Folge: {showAll.id}</p> */}
-                    <VideoPlayer src={showAll.url} title={showAll.title} id={showAll.id} name={showAll2.title}/>
+                    <VideoPlayer src={showAll.url} title={showAll.title} id={showAll.id} name={showAll2.title} />
                 </div>
             </div>
         </>

@@ -48,11 +48,15 @@
 
 .navbarContent {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     padding: 20px 0px;
     margin: 0px 50px;
-    width: 100%;
+}
+
+.navbarLinks{
+    display: flex;
+    align-items: center;
 }
 
 /* .navbar.scrolled {

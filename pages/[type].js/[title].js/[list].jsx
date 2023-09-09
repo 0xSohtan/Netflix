@@ -29,7 +29,13 @@ export default function List() {
             });
     }, []);
 
-    if (loading) return <div>Lade Episoden...</div>;
+    if (loading) return <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100vh'
+    }}>Lade Episoden...</div>;
 
     const Item = episodes[type][0][type];
 

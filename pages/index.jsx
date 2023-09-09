@@ -103,7 +103,7 @@ export default function Home() {
           ))}
         </div>
 
-        <div className={styles.info} style={{ marginTop: '50px'}}>
+        <div className={styles.info} style={{ marginTop: '50px' }}>
           <h4>
             {infos.title}
           </h4>
