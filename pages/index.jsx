@@ -4,10 +4,10 @@ import styles from '@/styles/Home.module.css'
 import { useState, useEffect } from 'react';
 import { fetchEpisodes } from '@/utils/apiHelpers';
 import Link from 'next/link';
-import Header from '@/components/header';
+import Header from '@/components/Header';
 
-import Episode from '@/public/assets/images/Episodes.jpeg'
-import DetektivConan from '@/public/assets/images/DetektivConan.jpeg'
+import Episode from '@/public/Episodes.jpeg'
+import DetektivConan from '@/public/DetektivConan.jpeg'
 
 export default function Home() {
   const [episodes, setEpisodes] = useState([]);

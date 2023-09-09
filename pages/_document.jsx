@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link rel="shortcut icon" href='/assets/images/Netflix.ico' />
+        <link rel="shortcut icon" href='/Netflix.ico' />
       </Head>
       <body>
         <Main />

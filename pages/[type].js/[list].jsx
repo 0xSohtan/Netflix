@@ -5,9 +5,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
 import styles from '@/styles/Home.module.css'
-import Header from '@/components/header';
+import Header from '@/components/Header';
 
-import Episode from '@/public/assets/images/Episodes.jpeg'
+import Episode from '@/public/Episodes.jpeg'
 
 export default function TypeList() {
 

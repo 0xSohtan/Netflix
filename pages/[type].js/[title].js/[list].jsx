@@ -5,9 +5,9 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
-import Header from '@/components/header';
+import Header from '@/components/Header';
 
-import Episode from '@/public/assets/images/Episodes.jpeg'
+import Episode from '@/public/Episodes.jpeg'
 
 
 export default function List() {

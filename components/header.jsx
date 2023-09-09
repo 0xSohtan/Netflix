@@ -1,16 +1,16 @@
 import Link from "next/link"
 import Image from "next/image"
-import HeaderStyles from '@/styles/Home.module.css'
+import HeaderStyles from '@/styles/Header.module.css'
 import packageJson from '../package.json';
 
-import Netflix from '@/public/assets/images/Netflix.png'
+import Netflix from '@/public/Netflix.png'
 
 const version = packageJson.version;
 
 export default function Header() {
 
     return (
-        <div className={`test ${HeaderStyles.navbar}`}>
+        <div className={HeaderStyles.navbar}>
             <div className={HeaderStyles.navbarContent}>
                 <div className={HeaderStyles.navbarLinks}>
                     <Link href="/">
