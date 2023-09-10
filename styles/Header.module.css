@@ -1,4 +1,7 @@
-/* Header */
+.icon {
+    width: 100px;
+    height: auto;
+}
 
 .navbar {
     padding: 0px 2rem;
@@ -12,48 +15,122 @@
 
 .navbarContent {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 20px 0px;
     margin: 0px 50px;
 }
 
-.navbarLinks {
-    display: flex;
-    align-items: center;
-}
-
 .navLinksWrapper {
     display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.navLinksWrapper ul {
+    display: flex;
+}
+
+.navLinksList {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
     margin-left: 60px;
 }
 
 .navLinks {
     font-family: Circular-Black;
     font-size: 1rem;
-    /* 16px */
     color: #B8B8B8;
     margin: 0px 15px;
 }
 
+/* Mobile Anpassungen */
+.menuButton {
+    display: none;
+    /* Verstecken Sie den Menü-Button standardmäßig */
+}
+
 /* Desktops */
 
-@media (min-width: 1200px) and (max-width: 1919px) {}
+@media screen and (max-width: 1919px) {}
 
 /* Large tablets/laptop */
 
-@media (min-width: 992px) and (max-width: 1199px) {}
+@media screen and (max-width: 1199px) {}
 
 /* Small Teblets */
 
-@media (min-width: 768px) and (max-width: 991px) {}
+@media screen and (max-width: 991px) {}
 
 
 /* Extra small devices */
 
-@media (min-width: 481px) and (max-width: 767px) {}
+@media screen and (max-width: 767px) {}
 
 
 /* Mobile */
 
-@media (max-width: 480) {}
+@media screen and (max-width: 480px) {
+
+    .navbar {
+        padding: 0px 1rem;
+    }
+
+    .navbarIconLink {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        /* Zentriert das Logo */
+    }
+
+    .icon {
+        width: 100px;
+        height: auto;
+    }
+
+    .navbarContent {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0px;
+        margin: 0px 10px;
+    }
+
+    .menuButton {
+        display: block;
+        color: white;
+        border: none;
+        background-color: transparent;
+        z-index: 1001;
+        order: -1; /* Dies stellt sicher, dass der Button immer zuerst (links) angezeigt wird */
+        margin-right: auto; 
+    }
+
+    .navLinksList {
+        margin: 0px 0px;
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100vh;
+        background-color: #141414;
+        flex-direction: column;
+        justify-content: center;
+        transition: left 0.3s ease;
+    }
+
+    .navLinksWrapper ul {
+        display: block;
+    }
+
+    .navLinks {
+        font-size: 2rem;
+        text-align: center;
+        padding: 10px 0px;
+    }
+
+    .navLinksList.open {
+        left: 0;
+    }
+
+}

@@ -131,3 +131,89 @@ p {
 a {
   cursor: pointer;
 }
+
+/* Desktops */
+
+@media screen and (max-width: 1919px) {}
+
+/* Large tablets/laptop */
+
+@media screen and (max-width: 1199px) {}
+
+/* Small Teblets */
+
+@media screen and (max-width: 991px) {
+
+  h1 {
+    font-size: 2rem;
+    /* 32px */
+  }
+
+  h2 {
+    font-size: 1.75rem;
+    /* 28px */
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    /* 24px */
+  }
+
+  h4 {
+    font-size: 1.25rem;
+    /* 20px */
+  }
+
+  h5 {
+    font-size: 1rem;
+    /* 16px */
+  }
+
+  p {
+    font-size: 0.875rem;
+    /* 14px */
+  }
+
+}
+
+
+/* Extra small devices */
+
+@media screen and (max-width: 767px) {
+
+  h1 {
+    font-size: 1.5rem;
+    /* 24px */
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    /* 20px */
+  }
+
+  h3 {
+    font-size: 1rem;
+    /* 16px */
+  }
+
+  h4 {
+    font-size: 0.875rem;
+    /* 14px */
+  }
+
+  h5 {
+    font-size: 0.75rem;
+    /* 12px */
+  }
+
+  p {
+    font-size: 0.75rem;
+    /* 12px */
+  }
+
+}
+
+
+/* Mobile */
+
+@media screen and (max-width: 480px) {}

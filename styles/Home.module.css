@@ -6,6 +6,15 @@
     padding: 10px 50px;
 }
 
+.mainImage {
+    background-image: radial-gradient(transparent, #141414), url('/DetektivConan.jpeg');
+    background-color: #141414;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 80vh;
+}
+
 .episodeGrid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -32,4 +41,122 @@
     width: 100%;
     height: auto;
     display: block;
+}
+
+/* Desktops */
+
+@media screen and (max-width: 1919px) {}
+
+/* Large tablets/laptop */
+
+@media screen and (max-width: 1199px) {}
+
+/* Small Teblets */
+
+@media screen and (max-width: 991px) {
+
+    .mainImage {
+        background-image: radial-gradient(transparent, #141414), url('/Episodes.jpeg');
+        background-color: #141414;     
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 100vh;
+    }
+
+    .episodeGrid {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(3, 1fr);
+        /* 6 Folgen in einer Reihe */
+        gap: 0.1rem;
+        /* Abstand zwischen den Folgen */
+        margin: 0px 0px;
+    }
+
+    .info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 10px;
+    }
+
+}
+
+
+/* Extra small devices */
+
+@media screen and (max-width: 767px) {
+
+    .mainImage {
+        background-image: radial-gradient(transparent, #141414), url('/Episodes.jpeg');
+        background-color: #141414;     
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 80vh;
+    }
+
+}
+
+
+/* Mobile */
+
+@media screen and (max-width: 480px) {
+
+    .mainImage {
+        background-image: radial-gradient(transparent, #141414), url('/Episodes.jpeg');
+        background-color: #141414;     
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 80vh;
+    }
+
+    /* .mainImageColor {
+        width: 100%;
+        height: 80vh;
+        background: radial-gradient(circle at center, transparent, rgba(0, 0, 0, 0.3));
+    } */
+
+    .info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 10px;
+    }
+    
+    .episodeGrid {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+        /* 6 Folgen in einer Reihe */
+        gap: 0.1rem;
+        /* Abstand zwischen den Folgen */
+        margin: 0px 0px;
+    }
+    
+    .episodeCard {
+        display: inline-block;
+        background-color: #141414;
+        color: white;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s;
+        margin: 5px 5px;
+    }
+    
+    .episodeCard:hover {
+        transform: scale(1.01);
+    }
+    
+    .episodeImage {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
 }
