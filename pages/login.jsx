@@ -5,6 +5,8 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import firebase from '@/utils/firebase'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 export default function Login() {
 
@@ -19,10 +21,13 @@ export default function Login() {
     const auth = getAuth(firebase);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      console.log("Erfolgreich angemeldet!");
-      router.push('/profile');
+      toast.success('Erfolgreich angemeldet! Sie werden weitergeleitet...');
+      setTimeout(() => {
+        router.push('/profile');
+      }, 2000);
     } catch (error) {
       console.error("Fehler beim Anmelden:", error);
+      toast.error('Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.');
     }
   };
 
@@ -51,6 +56,7 @@ export default function Login() {
           <p style={{ color: '#b3b3b3' }}>Neu hier? <Link href="/register" style={{ color: '#fff' }}>Hier Registrieren.</Link></p>
         </div>
       </div>
+      <Toaster />
     </>
   )
 }

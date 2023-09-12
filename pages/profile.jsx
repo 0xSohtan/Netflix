@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import firebase from '@/utils/firebase'
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Profile() {
 
@@ -33,7 +34,10 @@ export default function Profile() {
         const auth = getAuth(firebase);
         signOut(auth).then(() => {
             console.log("User signed out");
-            router.push('/login');
+            toast.success('Sie wurden erfolgreich abgemeldet.');
+            setTimeout(() => {
+                router.push('/login');
+            }, 2000);
         });
     };
 
@@ -49,6 +53,7 @@ export default function Profile() {
                 {user && <div>Email: {user.email}</div>}
                 <button onClick={handleLogout}>Logout</button> {/* Logout-Button hinzugefügt */}
             </div>
+            <Toaster />
         </>
     )
 }

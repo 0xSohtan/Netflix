@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { useRouter } from "next/router";
 import firebase from '@/utils/firebase'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Register() {
 
@@ -20,9 +21,13 @@ export default function Register() {
         try {
             await createUserWithEmailAndPassword(auth, email, password);
             // Weiterleitung oder andere Aktionen nach erfolgreicher Registrierung
-            router.push('/login')
+            toast.success('Erfolgreich registriert! Sie werden zur Anmeldeseite weitergeleitet...');
+            setTimeout(() => {
+                router.push('/login');
+            }, 2000);
         } catch (error) {
             console.error("Fehler bei der Registrierung:", error);
+            toast.error('Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.');
         }
     };
 
@@ -50,6 +55,7 @@ export default function Register() {
                     <p style={{ color: '#b3b3b3' }}>Haben Sie ein Account? <Link href="/login" style={{ color: '#fff' }}>Hier Anmelden.</Link></p>
                 </div>
             </div>
+            <Toaster />
         </>
     )
 }

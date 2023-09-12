@@ -12,8 +12,8 @@ export default function Document() {
         <meta property="og:image" content="/Episodes.jpeg" />
       </Head>
       <body>
-          <Main />
-          <NextScript />
+        <Main />
+        <NextScript />
       </body>
     </Html>
   )
