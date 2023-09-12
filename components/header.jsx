@@ -2,7 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import HeaderStyles from '@/styles/Header.module.css'
 import packageJson from '../package.json';
-import { useState } from "react";
+import React, { useState } from 'react';
 
 import Netflix from '@/public/Netflix.png'
 
@@ -58,7 +58,14 @@ export default function Header() {
                                     <Link href="/movies/list" onClick={toggleMenu}>Filme</Link>
                                 </li>
                             </ul>
-                            <p style={{ textAlign: 'center' }} className={HeaderStyles.versionText}>Beta v.{version}</p>
+                            <ul>
+                                <li className={HeaderStyles.navLinks}>
+                                    <Link href="/profile" onClick={toggleMenu}>Profile</Link>
+                                </li>
+                                <li className={HeaderStyles.navLinks}>
+                                    <p style={{ textAlign: 'center' }} className={HeaderStyles.versionText}>Beta v.{version}</p>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

@@ -1,3 +1,4 @@
+import { useRequireAuth } from '@/hooks/useRequireAuth';
 import { useState, useEffect } from 'react';
 import { fetchEpisodes } from '@/utils/apiHelpers';  // Pfad zu deiner api.js-Datei anpassen
 import { useRouter } from 'next/router';
@@ -5,6 +6,9 @@ import VideoPlayer from '@/components/VideoPlayer';
 import Head from 'next/head';
 
 function Episode() {
+
+    useRequireAuth()
+    
     const [episodes, setEpisodes] = useState([]);
     const [loading, setLoading] = useState(true);
     const router = useRouter();

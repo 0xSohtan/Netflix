@@ -1,3 +1,4 @@
+import { useRequireAuth } from '@/hooks/useRequireAuth';
 import { useState, useEffect } from 'react';
 import { fetchEpisodes } from '@/utils/apiHelpers';  // Pfad zu deiner api.js-Datei anpassen
 import styles from '@/styles/Home.module.css'
@@ -11,6 +12,8 @@ import Episode from '@/public/Episodes.jpeg'
 
 
 export default function List() {
+
+    useRequireAuth();
 
     const [episodes, setEpisodes] = useState([]);
     const [loading, setLoading] = useState(true);

@@ -1,3 +1,4 @@
+import { useRequireAuth } from '@/hooks/useRequireAuth';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { fetchEpisodes } from '@/utils/apiHelpers';
@@ -10,6 +11,8 @@ import Header from '@/components/header';
 import Episode from '@/public/Episodes.jpeg'
 
 export default function TypeList() {
+
+  useRequireAuth();
 
   const [episodes, setEpisodes] = useState([]);
   const [loading, setLoading] = useState(true);
