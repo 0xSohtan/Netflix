@@ -27,7 +27,7 @@ export default function List() {
                 setLoading(false);
             })
             .catch(error => {
-                console.error('Fehler beim Abrufen der Episoden:', error);
+                console.error('Fehler beim Abrufen der Episoden.');
                 setLoading(false);
             });
     }, []);

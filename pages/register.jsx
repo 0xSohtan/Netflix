@@ -36,7 +36,7 @@ export default function Register() {
                 router.push('/login');
             }, 3000);
         } catch (error) {
-            console.error("Fehler bei der Registrierung:", error);
+            console.error("Fehler bei der Registrierung:");
             toast.error('Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.');
         }
     };

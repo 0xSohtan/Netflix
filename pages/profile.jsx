@@ -61,7 +61,7 @@ export default function Profile() {
                 toast.success('Ihr Konto wurde erfolgreich gelöscht.');
                 router.push('/register'); // oder wohin auch immer Sie den Benutzer nach dem Löschen seines Kontos weiterleiten möchten
             } catch (error) {
-                console.error("Fehler beim Löschen des Kontos:", error);
+                console.error("Fehler beim Löschen des Kontos.");
                 toast.error('Fehler beim Löschen des Kontos. Bitte versuchen Sie es erneut.');
             }
         }

@@ -19,7 +19,7 @@ export default function ForgotPassword() {
             await sendPasswordResetEmail(auth, email); // Verwenden Sie die E-Mail-Adresse des aktuellen Benutzers
             toast.success('E-Mail zum Zurücksetzen des Passworts wurde gesendet. Bitte überprüfen Sie Ihren Posteingang.');
         } catch (error) {
-            console.error("Fehler beim Senden der Passwortzurücksetzungs-E-Mail:", error);
+            console.error("Fehler beim Senden der Passwortzurücksetzungs-E-Mail.");
             toast.error('Fehler beim Senden der Passwortzurücksetzungs-E-Mail. Bitte versuchen Sie es erneut.');
         }
     };

@@ -26,7 +26,7 @@ export default function Home() {
         setMovie(data.movies[0].movies);
         setInfos(data.movies[0]);
       })
-      .catch(error => console.error('Fehler beim Abrufen der Episoden:', error));
+      .catch(error => console.error('Fehler beim Abrufen der Episoden:'));
   }, []);
 
   function shuffleArray(array) {

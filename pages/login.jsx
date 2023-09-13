@@ -33,7 +33,7 @@ export default function Login() {
         router.push('/profile');
       }, 2000);
     } catch (error) {
-      console.error("Fehler beim Anmelden:", error);
+      console.error("Fehler beim Anmelden.");
       toast.error('Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.');
     }
   };

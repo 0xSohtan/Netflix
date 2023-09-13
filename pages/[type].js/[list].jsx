@@ -26,7 +26,7 @@ export default function TypeList() {
         setLoading(false);
       })
       .catch(error => {
-        console.error('Fehler beim Abrufen der Episoden:', error);
+        console.error('Fehler beim Abrufen der Episoden.');
         setLoading(false);
       });
   }, []);
