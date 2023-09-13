@@ -1,30 +1,40 @@
-import Head from "next/head"
+import Head from "next/head";
 import Link from "next/link";
-import registerStyles from '@/styles/Register.module.css'
+import registerStyles from '@/styles/Register.module.css';
 import React, { useState } from 'react';
 import { useRouter } from "next/router";
-import firebase from '@/utils/firebase'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import firebase from '@/utils/firebase';
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function Register() {
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [username, setUsername] = useState('');
 
     const router = useRouter();
 
     const handleRegister = async (event) => {
         event.preventDefault(); // Verhindert das Standardverhalten des Formulars
 
+        if (password !== confirmPassword) {
+            toast.error('Passwörter stimmen nicht überein!');
+            return;
+        }
+
         const auth = getAuth(firebase);
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            // Weiterleitung oder andere Aktionen nach erfolgreicher Registrierung
-            toast.success('Erfolgreich registriert! Sie werden zur Anmeldeseite weitergeleitet...');
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // Senden Sie die Bestätigungs-E-Mail
+            await sendEmailVerification(user);
+
+            toast.success('Bitte Bestätigen Sie ihre Email!');
             setTimeout(() => {
                 router.push('/login');
-            }, 2000);
+            }, 3000);
         } catch (error) {
             console.error("Fehler bei der Registrierung:", error);
             toast.error('Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.');
@@ -43,12 +53,20 @@ export default function Register() {
                     <h2>Registrieren</h2>
                     <form onSubmit={handleRegister}>
                         <div className={registerStyles.form_control}>
+                            <input value={username} onChange={e => setUsername(e.target.value)} placeholder="Benutzername" />
+                            <label>Benutzername</label>
+                        </div>
+                        <div className={registerStyles.form_control}>
                             <input value={email} onChange={e => setEmail(e.target.value)} placeholder="E-Mail" />
                             <label>Email</label>
                         </div>
                         <div className={registerStyles.form_control}>
                             <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Passwort" />
                             <label>Passwort</label>
+                        </div>
+                        <div className={registerStyles.form_control}>
+                            <input type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Passwort bestätigen" />
+                            <label>Passwort bestätigen</label>
                         </div>
                         <button type="submit">Registrieren</button>
                     </form>

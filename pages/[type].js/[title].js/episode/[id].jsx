@@ -1,18 +1,34 @@
 import { useRequireAuth } from '@/hooks/useRequireAuth';
 import { useState, useEffect } from 'react';
-import { fetchEpisodes } from '@/utils/apiHelpers';  // Pfad zu deiner api.js-Datei anpassen
+import { fetchEpisodes } from '@/utils/apiHelpers';
 import { useRouter } from 'next/router';
 import VideoPlayer from '@/components/VideoPlayer';
 import Head from 'next/head';
+import firebase from '@/utils/firebase';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 function Episode() {
 
-    useRequireAuth()
-    
+    useRequireAuth();
+
     const [episodes, setEpisodes] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState(null);
     const router = useRouter();
     const { type, title, id: episodeID } = router.query;
+
+    useEffect(() => {
+        const auth = getAuth(firebase);
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                setUser(currentUser);
+            } else {
+                router.push('/login');
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
 
     useEffect(() => {
         fetchEpisodes()
@@ -34,12 +50,26 @@ function Episode() {
         height: '100vh'
     }}>Lade Episoden...</div>;
 
-    const test = episodes[type][0][type];
-    const test2 = episodes[type];
-    const showAll = test.find(test => test.id === Number(episodeID));
-    const showAll2 = test2.find(test2 => test2.link_url === String(title));
+    if (user && !user.emailVerified) {
+        return (
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                height: '100vh'
+            }}>
+                Bitte bestätigen Sie Ihre E-Mail-Adresse, um auf diese Seite zuzugreifen.
+            </div>
+        );
+    }
 
-    if (!showAll) return <div style={{
+    const episodeTypeData = episodes[type][0][type];
+    const episodeTypeList = episodes[type];
+    const currentEpisode = episodeTypeData.find(episode => episode.id === Number(episodeID));
+    const currentShow = episodeTypeList.find(show => show.link_url === String(title));
+
+    if (!currentEpisode) return <div style={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -50,18 +80,17 @@ function Episode() {
     return (
         <>
             <Head>
-                <title>{showAll.title}</title>
-                <meta name="description" content={showAll.description} />
+                <title>{currentEpisode.title}</title>
+                <meta name="description" content={currentEpisode.description} />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
             <div>
                 <div>
-                    <VideoPlayer src={showAll.url} title={showAll.title} id={showAll.id} name={showAll2.title} />
+                    <VideoPlayer src={currentEpisode.url} title={currentEpisode.title} id={currentEpisode.id} name={currentShow.title} />
                 </div>
             </div>
         </>
     );
 }
-
 
 export default Episode;

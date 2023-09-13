@@ -19,8 +19,15 @@ export default function Login() {
     event.preventDefault(); // Verhindert das Standardverhalten des Formulars
 
     const auth = getAuth(firebase);
+    const user = auth.currentUser;
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
+
+      if (!user.emailVerified) {
+        toast.error('Bitte bestätigen Sie Ihre E-Mail-Adresse. Überprüfen Sie Ihren Posteingang oder Spam-Ordner.');
+      }
+
       toast.success('Erfolgreich angemeldet! Sie werden weitergeleitet...');
       setTimeout(() => {
         router.push('/profile');
@@ -44,13 +51,14 @@ export default function Login() {
           <h2>Anmelden</h2>
           <form onSubmit={handleLogin}>
             <div className={loginStyles.form_control}>
-              <input value={email} onChange={e => setEmail(e.target.value)} placeholder="E-Mail" />
-              <label>Email</label>
+              <input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email oder Benutzername" />
+              <label>Email oder Benutzername</label>
             </div>
             <div className={loginStyles.form_control}>
               <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Passwort" />
               <label>Passwort</label>
             </div>
+            <Link href="/forgot-password" style={{ color: '#fff' }}>Passwort vergessen?</Link>
             <button type="submit">Anmelden</button>
           </form>
           <p style={{ color: '#b3b3b3' }}>Neu hier? <Link href="/register" style={{ color: '#fff' }}>Hier Registrieren.</Link></p>
