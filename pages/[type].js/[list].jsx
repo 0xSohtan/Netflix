@@ -1,7 +1,7 @@
-import { useRequireAuth } from '@/hooks/useRequireAuth';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { fetchEpisodes } from '@/utils/apiHelpers';
+import { useRequireAuth } from '@/hooks/useRequireAuth';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';

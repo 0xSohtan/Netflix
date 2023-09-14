@@ -1,0 +1,53 @@
+.pageBody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    opacity: 0.5;
+    background: url("/Background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.main_wrapper {
+    text-align: center;
+    opacity: 1;
+}
+
+.title {
+    font-size: 3rem;
+    color: #E50914;
+    margin-bottom: 2rem;
+}
+
+.form_wrapper {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 4px;
+    padding: 70px;
+    width: 500px;
+    transform: translate(-50%, -50%);
+    background: RGBA(0, 0, 0, .75);
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.button {
+    background-color: #E50914;
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.3rem;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #C1070E;
+}

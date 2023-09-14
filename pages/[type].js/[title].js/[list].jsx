@@ -1,6 +1,6 @@
-import { useRequireAuth } from '@/hooks/useRequireAuth';
 import { useState, useEffect } from 'react';
 import { fetchEpisodes } from '@/utils/apiHelpers';  // Pfad zu deiner api.js-Datei anpassen
+import { useRequireAuth } from '@/hooks/useRequireAuth';
 import styles from '@/styles/Home.module.css'
 import { useRouter } from 'next/router';
 import Link from 'next/link';

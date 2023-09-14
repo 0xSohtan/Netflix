@@ -35,7 +35,7 @@ export default function Header() {
 
                     <div className={HeaderStyles.navLinksWrapper}>
                         {/* Netflix Logo */}
-                        <Link href="/" className={HeaderStyles.navbarIconLink}>
+                        <Link href="/browse" className={HeaderStyles.navbarIconLink}>
                             <Image
                                 src={Netflix}
                                 alt='Netflix'
@@ -49,7 +49,7 @@ export default function Header() {
                         <div className={`${HeaderStyles.navLinksList} ${menuOpen ? HeaderStyles.open : ''}`}>
                             <ul>
                                 <li className={HeaderStyles.navLinks}>
-                                    <Link href="/" onClick={toggleMenu}>Home</Link>
+                                    <Link href="/browse" onClick={toggleMenu}>Home</Link>
                                 </li>
                                 <li className={HeaderStyles.navLinks}>
                                     <Link href="/series/list" onClick={toggleMenu}>Series</Link>
