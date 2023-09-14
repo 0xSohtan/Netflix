@@ -12,12 +12,13 @@ export default function Goodbey() {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
 
-            <main className={styles.pageBody}>
-                <div className={styles.form_wrapper}>
-                    <h2>Wir werden dich vermissen!</h2>
-                    <Link href="/" style={{ color: '#fff' }}>Zur Startseite</Link>
+            <main className={styles.header}>
+                <div className={styles.header_content}>
+                    <h1>Wir werden dich vermissen!</h1>
+                    <p>Wir sind traurig, Sie gehen zu sehen. Bei Netflix streben wir stets danach, Ihnen das beste Erlebnis zu bieten. Wenn Sie jemals wieder in die spannende Welt von Detektiv Conan eintauchen möchten, sind wir immer hier, um Sie willkommen zu heißen.</p>
+                    <button><Link href='/'>Zur Startseite</Link></button>
                 </div>
             </main>
-        </> 
+        </>
     )
 }

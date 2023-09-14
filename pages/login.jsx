@@ -17,26 +17,28 @@ export default function Login() {
 
   const handleLogin = async (event) => {
     event.preventDefault(); // Verhindert das Standardverhalten des Formulars
-
+  
     const auth = getAuth(firebase);
-    const user = auth.currentUser;
-
+  
     try {
       await signInWithEmailAndPassword(auth, email, password);
-
-      if (!user.emailVerified) {
+      const user = auth.currentUser;
+  
+      if (user && !user.emailVerified) {
         toast.error('Bitte bestätigen Sie Ihre E-Mail-Adresse. Überprüfen Sie Ihren Posteingang oder Spam-Ordner.');
+        return; // Hier beenden wir die Funktion, wenn die E-Mail nicht bestätigt wurde.
       }
-
+  
       toast.success('Erfolgreich angemeldet! Sie werden weitergeleitet...');
       setTimeout(() => {
         router.push('/profile');
       }, 2000);
     } catch (error) {
-      console.error("Fehler beim Anmelden.");
+      console.error("Fehler beim Anmelden:", error);
       toast.error('Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut.');
     }
   };
+  
 
 
   return (
