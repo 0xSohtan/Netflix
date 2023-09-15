@@ -63,7 +63,7 @@ export default function List() {
                         key={episode.id}
                         className={styles.episodeCard}
                     >
-                        <Link href={`/${type}/${title}/episode/${episode.id}`}>
+                        <Link href={`/browse/${type}/${title}/episode/${episode.id}`}>
                             <Image
                                 src={episode.thumbnail || Episode}
                                 alt='Episode'

@@ -1,9 +1,10 @@
 import Link from "next/link"
 import Image from "next/image"
+import firebase from '@/utils/firebase';
+import { getAuth } from 'firebase/auth';
 import HeaderStyles from '@/styles/Header.module.css'
 import packageJson from '../package.json';
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import Netflix from '@/public/Netflix.png'
 
 const version = packageJson.version;
@@ -11,6 +12,16 @@ const version = packageJson.version;
 export default function Header() {
 
     const [menuOpen, setMenuOpen] = useState(false);
+    const [userID, setUserID] = useState(null);
+
+    useEffect(() => {
+        const auth = getAuth(firebase);
+        const user = auth.currentUser;
+
+        if (user) {
+            setUserID(user.uid);
+        }
+    }, []);
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -52,15 +63,15 @@ export default function Header() {
                                     <Link href="/browse" onClick={toggleMenu}>Home</Link>
                                 </li>
                                 <li className={HeaderStyles.navLinks}>
-                                    <Link href="/series/list" onClick={toggleMenu}>Series</Link>
+                                    <Link href="/browse/series/list" onClick={toggleMenu}>Series</Link>
                                 </li>
                                 <li className={HeaderStyles.navLinks}>
-                                    <Link href="/movies/list" onClick={toggleMenu}>Filme</Link>
+                                    <Link href="/browse/movies/list" onClick={toggleMenu}>Filme</Link>
                                 </li>
                             </ul>
                             <ul>
                                 <li className={HeaderStyles.navLinks}>
-                                    <Link href="/profile" onClick={toggleMenu}>Profile</Link>
+                                    <Link href={`/user/${userID}`} onClick={toggleMenu}>Profile</Link>
                                 </li>
                                 <li className={HeaderStyles.navLinks}>
                                     <p style={{ textAlign: 'center' }} className={HeaderStyles.versionText}>Beta v.{version}</p>

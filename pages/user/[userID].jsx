@@ -1,33 +1,44 @@
 import { useRequireAuth } from '@/hooks/useRequireAuth';
 import Header from "@/components/header"
 import Head from "next/head"
-import profileStyles from '@/styles/Profile.module.css'
+import Image from 'next/image';
+import userStyles from '@/styles/Profile.module.css'
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import firebase from '@/utils/firebase'
 import { getAuth, onAuthStateChanged, signOut, sendEmailVerification, deleteUser } from 'firebase/auth';
 import toast, { Toaster } from 'react-hot-toast';
+import userPicture from '@/public/User.png'
 
-export default function Profile() {
+export default function UserProfile() {
 
     useRequireAuth();
 
     const [user, setUser] = useState(null);
     const [lastClicked, setLastClicked] = useState(null);
-    const router = useRouter();
+    const [authChecked, setAuthChecked] = useState(false);
     const auth = getAuth(firebase);
+    const router = useRouter();
+    const { userID } = router.query;
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setAuthChecked(true);
             if (currentUser) {
-                setUser(currentUser);
+                if (currentUser.uid !== userID) {
+                    toast.error('Zugriff verweigert. Sie können nur auf Ihr eigenes Profil zugreifen.');
+                    router.push('/browse');
+                } else {
+                    setUser(currentUser);
+                    // console.log(currentUser)
+                }
             } else {
                 router.push('/login');
             }
         });
 
         return () => unsubscribe();
-    }, []);
+    }, [userID]);
 
     const resendVerificationEmail = async () => {
         const user = auth.currentUser;
@@ -79,6 +90,16 @@ export default function Profile() {
         });
     };
 
+    if (!authChecked) {
+        return <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            height: '100vh'
+        }}>Lade...</div>; // Sie können hier jede Ladeanzeige anzeigen, die Sie möchten
+    }
+
     return (
         <>
             <Head>
@@ -87,17 +108,26 @@ export default function Profile() {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
             <Header />
-            <div style={{ width: '100%', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div className={userStyles.main_wrapper}>
+                <Image
+                    src={user.photoURL || userPicture}
+                    width={100}
+                    height={100}
+                    alt='Profilbild'
+                    priority
+                />
+                {user && <div>Benutzername: {user.displayName || 'Unbekannt'}</div>}
                 {user && <div>Email: {user.email}</div>}
                 {user && !user.emailVerified && (
                     <>
-                        <p>Ihre E-Mail-Adresse wurde noch nicht bestätigt.</p>
+                        <p>Verified: Ihre E-Mail-Adresse wurde noch nicht bestätigt.</p>
                         <button onClick={handleButtonClick}>Bestätigungs-E-Mail erneut senden</button>
                     </>
                 )}
                 {user && user.emailVerified && (
-                    <p>Ihre E-Mail-Adresse wurde bestätigt!</p>
+                    <p>Verified: Ihre E-Mail-Adresse wurde bestätigt!</p>
                 )}
+                {user && <div>Telefonnummer: {user.phoneNumber || 'Unbekannt'}</div>}
                 <button onClick={handleLogout}>Logout</button>
                 <button onClick={handleDeleteAccount}>Account löschen</button>
             </div>

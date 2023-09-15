@@ -60,7 +60,7 @@ export default function TypeList() {
         <li
           className={styles.episodeCard}
         >
-          <Link href={`/${type}/${test.link_url}/list`}>
+          <Link href={`/browse/${type}/${test.link_url}/list`}>
             <Image
               src={test.thumbnail || Episode}
               alt='Episode'

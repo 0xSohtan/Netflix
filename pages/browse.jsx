@@ -73,7 +73,7 @@ export default function Home() {
           <h4>
             {links.title}
           </h4>
-          <Link href={`/${links.type}/${links.link_url}/list`}>
+          <Link href={`/browse/${links.type}/${links.link_url}/list`}>
             <h5>
               Mehr Anzeigen
             </h5>
@@ -86,7 +86,7 @@ export default function Home() {
               key={episode.id}
               className={styles.episodeCard}
             >
-              <Link href={`/${links.type}/${links.link_url}/episode/${episode.id}`}>
+              <Link href={`/browse/${links.type}/${links.link_url}/episode/${episode.id}`}>
                 <Image
                   width={300}
                   height={400}
@@ -105,7 +105,7 @@ export default function Home() {
           <h4>
             {infos.title}
           </h4>
-          <Link href={`/${infos.type}/${infos.link_url}/list`}>
+          <Link href={`/browse/${infos.type}/${infos.link_url}/list`}>
             <h5>
               Mehr Anzeigen
             </h5>
@@ -118,7 +118,7 @@ export default function Home() {
               key={episode.id}
               className={styles.episodeCard}
             >
-              <Link href={`/${infos.type}/${infos.link_url}/episode/${episode.id}`}>
+              <Link href={`/browse/${infos.type}/${infos.link_url}/episode/${episode.id}`}>
                 <Image
                   src={episode.thumbnail || Episode}
                   className={styles.episodeImage}
