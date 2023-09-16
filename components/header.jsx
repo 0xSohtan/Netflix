@@ -6,6 +6,7 @@ import HeaderStyles from '@/styles/Header.module.css'
 import packageJson from '../package.json';
 import React, { useState, useEffect } from 'react';
 import Netflix from '@/public/Netflix.png'
+import userPicture from '@/public/User.png'
 
 const version = packageJson.version;
 
@@ -13,6 +14,7 @@ export default function Header() {
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [userID, setUserID] = useState(null);
+    const [userImage, setUserImage] = useState(null)
 
     useEffect(() => {
         const auth = getAuth(firebase);
@@ -20,6 +22,7 @@ export default function Header() {
 
         if (user) {
             setUserID(user.uid);
+            setUserImage(user.photoURL);
         }
     }, []);
 
@@ -71,7 +74,7 @@ export default function Header() {
                             </ul>
                             <ul>
                                 <li className={HeaderStyles.navLinks}>
-                                    <Link href={`/user/${userID}`} onClick={toggleMenu}>Profile</Link>
+                                    <Link href={`/user/${userID}`} onClick={toggleMenu} style={{display: 'flex', alignItems: 'center'}}><Image src={userImage || userPicture} width={30} height={30} alt="Profile"/></Link>
                                 </li>
                                 <li className={HeaderStyles.navLinks}>
                                     <p style={{ textAlign: 'center' }} className={HeaderStyles.versionText}>Beta v.{version}</p>

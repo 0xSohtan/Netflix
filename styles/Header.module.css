@@ -28,6 +28,7 @@
 
 .navLinksWrapper ul {
     display: flex;
+    align-items: center;
 }
 
 .navLinksList {
