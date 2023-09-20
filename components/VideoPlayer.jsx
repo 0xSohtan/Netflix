@@ -144,7 +144,7 @@ function VideoPlayer({ src, title, id, name }) {
         <div className='video_controls_container'>
 
           <div className='timeline_container'>
-            <span className='controlsTime'>{Math.floor(currentTime / 60)}:{Math.floor(currentTime % 60)}</span>
+            <span className='controlsTime_left'>{Math.floor(currentTime / 60)}:{Math.floor(currentTime % 60)}</span>
             <input
               type="range"
               min="0"
@@ -155,7 +155,7 @@ function VideoPlayer({ src, title, id, name }) {
                 videoRef.current.currentTime = e.target.value;
               }}
             />
-            <span className='controlsTime'>{Math.floor(duration / 60)}:{Math.floor(duration % 60)}</span>
+            <span className='controlsTime_right'>{Math.floor(duration / 60)}:{Math.floor(duration % 60)}</span>
           </div>
 
           <div className='controls'>

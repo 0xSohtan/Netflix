@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
 import '@/styles/video.css'
+import '@/styles/font.css'
 
 export default function App({ Component, pageProps }) {
   return <>

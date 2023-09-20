@@ -11,9 +11,13 @@
   flex-grow: 1;
 }
 
-.controlsTime {
+.controlsTime_left {
   width: 5%;
-  text-align: center;
+  text-align: left;
+}
+.controlsTime_right {
+  width: 5%;
+  text-align: right;
 }
 
 .video_container {

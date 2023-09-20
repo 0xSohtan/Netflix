@@ -110,8 +110,9 @@
         border: none;
         background-color: transparent;
         z-index: 1001;
-        order: -1; /* Dies stellt sicher, dass der Button immer zuerst (links) angezeigt wird */
-        margin-right: auto; 
+        order: -1;
+        /* Dies stellt sicher, dass der Button immer zuerst (links) angezeigt wird */
+        margin-right: auto;
     }
 
     .navLinksList {

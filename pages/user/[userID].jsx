@@ -9,6 +9,8 @@ import firebase from '@/utils/firebase'
 import { getAuth, onAuthStateChanged, signOut, sendEmailVerification, deleteUser } from 'firebase/auth';
 import toast, { Toaster } from 'react-hot-toast';
 import userPicture from '@/public/User.png'
+// import { db } from '@/utils/firebase';
+// import { collection, getDocs } from '@firebase/firestore';
 
 export default function UserProfile() {
 
@@ -20,8 +22,24 @@ export default function UserProfile() {
     const auth = getAuth(firebase);
     const router = useRouter();
     const { userID } = router.query;
+    // const moviesList = collection(db, "movies")
 
     useEffect(() => {
+
+        // const getList = async () => {
+        //     try {
+        //         const data = await getDocs(moviesList);
+        //         const filteredData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        //         const movies = filteredData[0].movies
+        //         console.log
+        //         console.log(filteredData)
+        //     } catch (err) {
+        //         console.error(err)
+        //     }
+        // };
+
+        // getList()
+
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setAuthChecked(true);
             if (currentUser) {

@@ -39,8 +39,6 @@ export default function Login() {
     }
   };
 
-
-
   return (
     <>
       <Head>
@@ -53,8 +51,8 @@ export default function Login() {
           <h2>Anmelden</h2>
           <form onSubmit={handleLogin}>
             <div className={loginStyles.form_control}>
-              <input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email oder Benutzername" />
-              <label>Email oder Benutzername</label>
+              <input value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" />
+              <label>Email</label>
             </div>
             <div className={loginStyles.form_control}>
               <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Passwort" />

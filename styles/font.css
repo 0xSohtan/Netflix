@@ -1,0 +1,79 @@
+@font-face {
+  font-family: Circular-Black;
+  src: url(./fonts/CircularStd-Black.otf);
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Circular-BlackItalic;
+  src: url(./fonts/CircularStd-BlackItalic.otf);
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Circular-Bold;
+  src: url(./fonts/CircularStd-Bold.otf);
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Circular-BoldItalic;
+  src: url(./fonts/CircularStd-BoldItalic.otf);
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Circular-Medium;
+  src: url(./fonts/CircularStd-Medium.otf);
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Circular-MediumItalic;
+  src: url(./fonts/CircularStd-MediumItalic.otf);
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Circular-Book;
+  src: url(./fonts/CircularStd-Book.otf);
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Circular-BookItalic;
+  src: url(./fonts/CircularStd-BookItalic.otf);
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Circular-Light;
+  src: url(./fonts/CircularStd-Light.otf);
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Circular-LightItalic;
+  src: url(./fonts/CircularStd-Light\ Italic.otf);
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}

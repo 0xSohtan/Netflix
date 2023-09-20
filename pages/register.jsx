@@ -4,7 +4,7 @@ import registerStyles from '@/styles/Register.module.css';
 import React, { useState } from 'react';
 import { useRouter } from "next/router";
 import firebase from '@/utils/firebase';
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from 'firebase/auth';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function Register() {
@@ -28,6 +28,11 @@ export default function Register() {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
+            // Aktualisieren Sie den Benutzernamen im Benutzerprofil
+            await updateProfile(user, {
+                displayName: username
+            });
+
             // Senden Sie die Bestätigungs-E-Mail
             await sendEmailVerification(user);
 
@@ -36,7 +41,7 @@ export default function Register() {
                 router.push('/login');
             }, 3000);
         } catch (error) {
-            console.error("Fehler bei der Registrierung:");
+            console.error("Fehler bei der Registrierung:", error);
             toast.error('Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.');
         }
     };
