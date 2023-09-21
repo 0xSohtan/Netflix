@@ -75,7 +75,7 @@ export default function Header() {
                             <ul>
                                 <li className={HeaderStyles.navLinks}>
                                     <Link href={`/user/${userID}`} onClick={toggleMenu} style={{ display: 'flex', alignItems: 'center' }}>
-                                        <Image src={userImage || userPicture} width={30} height={30} alt="Profile" />
+                                        <Image src={userImage || userPicture} width={50} height={50} alt="Profile" className={HeaderStyles.profile_picture}/>
                                     </Link>
                                 </li>
                                 <li className={HeaderStyles.navLinks}>

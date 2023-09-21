@@ -20,6 +20,10 @@
     margin: 0px 50px;
 }
 
+.profile_picture {
+    border-radius: 100%;
+}
+
 .navLinksWrapper {
     display: flex;
     align-items: center;

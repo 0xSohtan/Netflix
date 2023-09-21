@@ -6,11 +6,11 @@ import userStyles from '@/styles/Profile.module.css'
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import firebase from '@/utils/firebase'
-import { getAuth, onAuthStateChanged, signOut, sendEmailVerification, deleteUser } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, signOut, sendEmailVerification, deleteUser, updateProfile } from 'firebase/auth';
 import toast, { Toaster } from 'react-hot-toast';
 import userPicture from '@/public/User.png'
-import { db } from '@/utils/firebase';
-import { collection, getDocs } from '@firebase/firestore';
+// import { db } from '@/utils/firebase';
+// import { collection, getDocs } from '@firebase/firestore';
 
 export default function UserProfile() {
 
@@ -19,26 +19,35 @@ export default function UserProfile() {
     const [user, setUser] = useState(null);
     const [lastClicked, setLastClicked] = useState(null);
     const [authChecked, setAuthChecked] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const auth = getAuth(firebase);
     const router = useRouter();
     const { userID } = router.query;
-    const moviesList = collection(db, "movies")
+    // const moviesList = collection(db, "movies");
+
+    const avatars = [
+        'https://shdw-drive.genesysgo.net/DdMHdxd8NyWWrHKwMUhp6TxEEyyY4pE3ZUbe4pxEp8iC/Agasa.png',
+        'https://shdw-drive.genesysgo.net/DdMHdxd8NyWWrHKwMUhp6TxEEyyY4pE3ZUbe4pxEp8iC/Ai.png',
+        'https://shdw-drive.genesysgo.net/DdMHdxd8NyWWrHKwMUhp6TxEEyyY4pE3ZUbe4pxEp8iC/Conan.png',
+        'https://shdw-drive.genesysgo.net/DdMHdxd8NyWWrHKwMUhp6TxEEyyY4pE3ZUbe4pxEp8iC/Kogoro.png',
+        'https://shdw-drive.genesysgo.net/DdMHdxd8NyWWrHKwMUhp6TxEEyyY4pE3ZUbe4pxEp8iC/Kudo.png',
+        'https://shdw-drive.genesysgo.net/DdMHdxd8NyWWrHKwMUhp6TxEEyyY4pE3ZUbe4pxEp8iC/Ran.png'
+    ]
 
     useEffect(() => {
 
-        const getList = async () => {
-            try {
-                const data = await getDocs(moviesList);
-                const filteredData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-                const movies = filteredData[0].movies
-                console.log
-                console.log(filteredData)
-            } catch (err) {
-                console.error(err)
-            }
-        };
+        // const getList = async () => {
+        //     try {
+        //         const data = await getDocs(moviesList);
+        //         const filteredData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        //         const movies = filteredData[0].movies
+        //         console.log(filteredData)
+        //     } catch (err) {
+        //         console.error(err)
+        //     }
+        // };
 
-        getList()
+        // getList()
 
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setAuthChecked(true);
@@ -48,7 +57,7 @@ export default function UserProfile() {
                     router.push('/browse');
                 } else {
                     setUser(currentUser);
-                    console.log(currentUser)
+                    // console.log(currentUser)
                 }
             } else {
                 router.push('/login');
@@ -98,7 +107,6 @@ export default function UserProfile() {
 
 
     const handleLogout = () => {
-        const auth = getAuth(firebase);
         signOut(auth).then(() => {
             console.log("User signed out");
             toast.success('Sie wurden erfolgreich abgemeldet.');
@@ -107,6 +115,24 @@ export default function UserProfile() {
             }, 2000);
         });
     };
+
+    const changeProfilePicture = async (avatars) => {
+        const user = auth.currentUser;
+
+        if (user) {
+            try {
+                await updateProfile(user, {
+                    photoURL: avatars
+                });
+                toast.success('User photoURL updated successfully');
+                setTimeout(() => {
+                    router.reload();
+                }, 2000)
+            } catch (error) {
+                toast.error('Error updating user photoURL:');
+            }
+        }
+    }
 
     if (!authChecked) {
         return <div style={{
@@ -127,13 +153,26 @@ export default function UserProfile() {
             </Head>
             <Header />
             <div className={userStyles.main_wrapper}>
-                <Image
-                    src={user.photoURL || userPicture}
-                    width={100}
-                    height={100}
-                    alt='Profilbild'
-                    priority
-                />
+                <div onClick={() => setShowModal(true)}>
+                    <Image
+                        src={user.photoURL || userPicture}
+                        width={100}
+                        height={100}
+                        style={{ borderRadius: '100%' }}
+                        alt='Profilbild'
+                        priority
+                    />
+                </div>
+                {showModal && (
+                    <div className={userStyles.modal}>
+                        {avatars.map((avatar, index) => (
+                            <div key={index} onClick={() => changeProfilePicture(avatar)}>
+                                <Image src={avatar} width={100} height={100} alt={`Avatar ${index + 1}`} style={{ borderRadius: '100%' }} />
+                            </div>
+                        ))}
+                        <button onClick={() => setShowModal(false)}>Schließen</button>
+                    </div>
+                )}
                 {user && <div>Benutzername: {user.displayName || 'Unbekannt'}</div>}
                 {user && <div>Email: {user.email}</div>}
                 {user && !user.emailVerified && (
@@ -145,7 +184,9 @@ export default function UserProfile() {
                 {user && user.emailVerified && (
                     <p>Verified: Ihre E-Mail-Adresse wurde bestätigt!</p>
                 )}
-                {user && <div>Telefonnummer: {user.phoneNumber || 'Unbekannt'}</div>}
+                {/* {user && <div>Telefonnummer: {user.phoneNumber || 'Unbekannt'}</div>} */}
+                {user && <div>Account erstellt: {user.metadata.creationTime || 'Unbekannt'}</div>}
+                {user && <div>Last Login: {user.metadata.lastSignInTime || 'Unbekannt'}</div>}
                 <button onClick={handleLogout}>Logout</button>
                 <button onClick={handleDeleteAccount}>Account löschen</button>
             </div>
