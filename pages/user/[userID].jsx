@@ -9,8 +9,6 @@ import firebase from '@/utils/firebase'
 import { getAuth, onAuthStateChanged, signOut, sendEmailVerification, deleteUser, updateProfile } from 'firebase/auth';
 import toast, { Toaster } from 'react-hot-toast';
 import userPicture from '@/public/User.png'
-// import { db } from '@/utils/firebase';
-// import { collection, getDocs } from '@firebase/firestore';
 
 export default function UserProfile() {
 
@@ -153,42 +151,53 @@ export default function UserProfile() {
             </Head>
             <Header />
             <div className={userStyles.main_wrapper}>
-                <div onClick={() => setShowModal(true)}>
-                    <Image
-                        src={user.photoURL || userPicture}
-                        width={100}
-                        height={100}
-                        style={{ borderRadius: '100%' }}
-                        alt='Profilbild'
-                        priority
-                    />
-                </div>
+
                 {showModal && (
-                    <div className={userStyles.modal}>
-                        {avatars.map((avatar, index) => (
-                            <div key={index} onClick={() => changeProfilePicture(avatar)}>
-                                <Image src={avatar} width={100} height={100} alt={`Avatar ${index + 1}`} style={{ borderRadius: '100%' }} />
-                            </div>
-                        ))}
-                        <button onClick={() => setShowModal(false)}>Schließen</button>
-                    </div>
-                )}
-                {user && <div>Benutzername: {user.displayName || 'Unbekannt'}</div>}
-                {user && <div>Email: {user.email}</div>}
-                {user && !user.emailVerified && (
                     <>
-                        <p>Verified: Ihre E-Mail-Adresse wurde noch nicht bestätigt.</p>
-                        <button onClick={handleButtonClick}>Bestätigungs-E-Mail erneut senden</button>
+                        <div className={userStyles.modal}>
+                            <div>
+                                <h2 style={{ textAlign: 'center' , marginBottom: 40 }}>Wähle dein Profilbild aus!</h2>
+                                <div className={userStyles.imageOption}>
+                                    {avatars.map((avatar, index) => (
+                                        <div key={index} onClick={() => changeProfilePicture(avatar)} className={userStyles.option}>
+                                            <Image src={avatar} width={100} height={100} alt={`Avatar ${index + 1}`} style={{ borderRadius: '100%', cursor: 'pointer' }} />
+                                        </div>
+                                    ))}
+                                </div>
+                                <button onClick={() => setShowModal(false)}>Schließen</button>
+                            </div>
+                        </div>
                     </>
                 )}
-                {user && user.emailVerified && (
-                    <p>Verified: Ihre E-Mail-Adresse wurde bestätigt!</p>
-                )}
-                {/* {user && <div>Telefonnummer: {user.phoneNumber || 'Unbekannt'}</div>} */}
-                {user && <div>Account erstellt: {user.metadata.creationTime || 'Unbekannt'}</div>}
-                {user && <div>Last Login: {user.metadata.lastSignInTime || 'Unbekannt'}</div>}
-                <button onClick={handleLogout}>Logout</button>
-                <button onClick={handleDeleteAccount}>Account löschen</button>
+
+                <div className={userStyles.account_wrapper}>
+                    <div onClick={() => setShowModal(true)} style={{ display: 'flex', justifyContent: 'center', margin: 40 }}>
+                        <Image
+                            src={user.photoURL || userPicture}
+                            width={100}
+                            height={100}
+                            style={{ borderRadius: '100%', cursor: 'pointer' }}
+                            alt='Profilbild'
+                            priority
+                        />
+                    </div>
+                    {user && <div>Benutzername: {user.displayName || 'Unbekannt'}</div>}
+                    {user && <div>Email: {user.email}</div>}
+                    {user && !user.emailVerified && (
+                        <>
+                            <p>Verified: Ihre E-Mail-Adresse wurde noch nicht bestätigt.</p>
+                            <button onClick={handleButtonClick}>Bestätigungs-E-Mail erneut senden</button>
+                        </>
+                    )}
+                    {user && user.emailVerified && (
+                        <p>Verified: Ihre E-Mail-Adresse wurde bestätigt!</p>
+                    )}
+                    {/* {user && <div>Telefonnummer: {user.phoneNumber || 'Unbekannt'}</div>} */}
+                    {user && <div>Account erstellt: {user.metadata.creationTime || 'Unbekannt'}</div>}
+                    {user && <div>Last Login: {user.metadata.lastSignInTime || 'Unbekannt'}</div>}
+                    <button onClick={handleLogout}>Logout</button>
+                    <button onClick={handleDeleteAccount}>Account löschen</button>
+                </div>
             </div>
             <Toaster />
         </>
