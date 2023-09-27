@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { db } from '@/utils/firebase';
-import { doc, addDoc, collection, getDocs, updateDoc, arrayUnion } from '@firebase/firestore';
+import { doc, collection, getDocs, updateDoc, arrayUnion } from '@firebase/firestore';
 import { useEffect } from 'react';
 import { useRequireAuth } from '@/hooks/useRequireAuth';
 import { useState } from 'react';
@@ -15,7 +15,7 @@ export default function AdminDashboard() {
     const [newId, setNewId] = useState(0);
     const [newUrl, setNewUrl] = useState('');
     const [newThumbnail, setNewThumbnail] = useState('');
-    const moviesList = collection(db, selectedOption);
+    const videoList = collection(db, selectedOption);
 
     useEffect(() => {
 
@@ -25,7 +25,7 @@ export default function AdminDashboard() {
 
     const getList = async () => {
         try {
-            const data = await getDocs(moviesList);
+            const data = await getDocs(videoList);
             const filteredData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
             const movies = filteredData[0][`${selectedOption}`];
             console.log(filteredData);

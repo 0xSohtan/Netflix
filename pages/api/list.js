@@ -8,7 +8,7 @@ export default function handler(req, res) {
         type: 'series',
         thumbnail: 'https://shdw-drive.genesysgo.net/BiVmb2T6GY3vWNWYg8ojh1Tjyeiejkot8ZNB7WwRJWAL/Episodes.jpeg',
         description: 'Messerscharfer Verstand, geniale Kombinationsgabe – mit gerade mal 17 Jahren gilt Shin’ichi Kudô bereits als Meisterdetektiv. Immer wieder hilft er der Polizei dabei, die kniffligsten Fälle zu lösen. Eines Tages jedoch beobachtet er zwei Männer in Schwarz bei einem verdächtigen Deal. Dabei bemerkt er den Verbrecher hinter sich nicht, der ihm ein mysteriöses Gift verabreicht. Schließlich erwacht Shin’ichi im Körper eines Grundschülers. Um nicht wieder ins Visier der Schwarzen Organisation zu geraten, lebt er fortan bei seiner Freundin Ran. Aufgepasst, hier kommt der kleine Detektiv Conan!',
-        episodeNumbers: '',       
+        episodeNumbers: '',
         series: [
           { id: 3, title: "Die Doppelgängering", thumbnail: 'https://shdw-drive.genesysgo.net/BiVmb2T6GY3vWNWYg8ojh1Tjyeiejkot8ZNB7WwRJWAL/Episodes.jpeg', description: "Beschreibung von Film A", url: "https://shdw-drive.genesysgo.net/BiVmb2T6GY3vWNWYg8ojh1Tjyeiejkot8ZNB7WwRJWAL/003%20Detektiv%20Conan%20Die%20Doppelg%C3%A4ngerin.mp4" },
           { id: 4, title: "Auf Schatzsuche", thumbnail: 'https://shdw-drive.genesysgo.net/BiVmb2T6GY3vWNWYg8ojh1Tjyeiejkot8ZNB7WwRJWAL/Episodes.jpeg', description: "Beschreibung von Film B", url: "https://shdw-drive.genesysgo.net/BiVmb2T6GY3vWNWYg8ojh1Tjyeiejkot8ZNB7WwRJWAL/004%20Detektiv%20Conan%20Auf%20Schatzsuche.mp4" },

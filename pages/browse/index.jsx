@@ -2,14 +2,14 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import { useState, useEffect } from 'react';
-import { fetchEpisodes } from '@/utils/apiHelpers';
+import fetchDataFromFirestore from '@/utils/firebaseHelper';
 import Link from 'next/link';
 import Header from '@/components/header';
 import { useRequireAuth } from '@/hooks/useRequireAuth';
 
 import Episode from '@/public/Episodes.jpeg'
 
-export default function Home() {
+export default function Browse() {
 
   useRequireAuth();
 
@@ -19,14 +19,21 @@ export default function Home() {
   const [infos, setInfos] = useState([]);
 
   useEffect(() => {
-    fetchEpisodes()  // Annahme, dass dies der Endpunkt ist, um alle Episoden zu erhalten
-      .then(data => {
-        setEpisodes(data.series[0].series);
-        setLink(data.series[0]);
-        setMovie(data.movies[0].movies);
-        setInfos(data.movies[0]);
-      })
-      .catch(error => console.error('Fehler beim Abrufen der Episoden:'));
+
+    const getData = async () => {
+      const movies = await fetchDataFromFirestore("movies", "detectiv-conan");
+      const series = await fetchDataFromFirestore("series", "detectiv-conan");
+
+      if (movies && series) {
+        setEpisodes(series.series);
+        setLink(series);
+        setMovie(movies.movies);
+        setInfos(movies);
+      }
+    };
+
+    getData();
+
   }, []);
 
   function shuffleArray(array) {

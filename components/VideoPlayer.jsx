@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 
-function VideoPlayer({ src, title, id, name }) {
+function VideoPlayer({ src, title, id, name, next, prev, type, link_url }) {
   const router = useRouter();
   const videoRef = useRef(null);
   const volumeSliderRef = useRef(null);
@@ -36,12 +36,6 @@ function VideoPlayer({ src, title, id, name }) {
         case "f":
           handleFullScreen();
           break;
-        // case "t":
-        //   toggleTheaterMode();
-        //   break;
-        // case "i":
-        //   toggleMiniPlayerMode();
-        //   break;
         case "m":
           toggleMute();
           break;
@@ -70,7 +64,7 @@ function VideoPlayer({ src, title, id, name }) {
   }, []);
 
   const goBack = () => {
-    router.back();
+    router.push(`/browse/${type}/${link_url}/list`);
   };
 
   const togglePlay = () => {
@@ -127,6 +121,24 @@ function VideoPlayer({ src, title, id, name }) {
     }
     setPlaybackRate(newPlaybackRate);
     videoRef.current.playbackRate = newPlaybackRate;
+  };
+
+  const handleNextEpisode = () => {
+    if (next) {
+      router.push(`/browse/${type}/${link_url}/episode/${next.id}`);
+      setTimeout(() => {
+        router.reload();
+      }, 300);
+    }
+  };
+
+  const handlePrevEpisode = () => {
+    if (prev) {
+      router.push(`/browse/${type}/${link_url}/episode/${prev.id}`);
+      setTimeout(() => {
+        router.reload();
+      }, 300);
+    }
   };
 
   return (
@@ -201,6 +213,11 @@ function VideoPlayer({ src, title, id, name }) {
               <p style={{ color: 'white' }} title={name}>{truncateTitle(name)}</p>
               <p>Episode: {id}</p>
               <p title={title}>{truncateTitle(title)}</p>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              {prev && <div className="next_button" onClick={handlePrevEpisode}>Vorherige Episode</div>}
+              {next && <div className="next_button" onClick={handleNextEpisode}>Nächste Episode</div>}
             </div>
 
             <button className='speed_btn wide_btn' onClick={changePlaybackSpeed}>

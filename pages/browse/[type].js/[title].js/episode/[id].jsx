@@ -1,6 +1,6 @@
 import { useRequireAuth } from '@/hooks/useRequireAuth';
 import { useState, useEffect } from 'react';
-import { fetchEpisodes } from '@/utils/apiHelpers';
+import fetchDataFromFirestore from '@/utils/firebaseHelper';
 import { useRouter } from 'next/router';
 import VideoPlayer from '@/components/VideoPlayer';
 import Head from 'next/head';
@@ -11,13 +11,14 @@ function Episode() {
 
     useRequireAuth();
 
-    const [episodes, setEpisodes] = useState([]);
+    const [episodes, setEpisodes] = useState({});
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
     const router = useRouter();
-    const { type, title, id: episodeID } = router.query;
+    const { type, title: link_url, id: episodeID } = router.query;
 
     useEffect(() => {
+
         const auth = getAuth(firebase);
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
@@ -27,20 +28,22 @@ function Episode() {
             }
         });
 
-        return () => unsubscribe();
-    }, []);
+        if (!type && !link_url) return;
 
-    useEffect(() => {
-        fetchEpisodes()
-            .then(data => {
-                setEpisodes(data);
+        const getData = async () => {
+            const video = await fetchDataFromFirestore(type, link_url);
+
+            if (video) {
+                setEpisodes(video)
                 setLoading(false);
-            })
-            .catch(error => {
-                console.error('Fehler beim Abrufen der Episoden.');
-                setLoading(false);
-            });
-    }, []);
+            }
+        };
+
+        getData();
+
+        return () => unsubscribe();
+
+    }, [type, link_url]);
 
     if (loading) return <div style={{
         display: 'flex',
@@ -50,24 +53,26 @@ function Episode() {
         height: '100vh'
     }}>Lade Episoden...</div>;
 
-    if (user && !user.emailVerified) {
-        return (
-            <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                width: '100%',
-                height: '100vh'
-            }}>
-                Bitte bestätigen Sie Ihre E-Mail-Adresse, um auf diese Seite zuzugreifen.
-            </div>
-        );
-    }
+    // if (user && !user.emailVerified) {
+    //     return (
+    //         <div style={{
+    //             display: 'flex',
+    //             justifyContent: 'center',
+    //             alignItems: 'center',
+    //             width: '100%',
+    //             height: '100vh'
+    //         }}>
+    //             Bitte bestätigen Sie Ihre E-Mail-Adresse, um auf diese Seite zuzugreifen.
+    //         </div>
+    //     );
+    // }
 
-    const episodeTypeData = episodes[type][0][type];
-    const episodeTypeList = episodes[type];
+    const episodeTypeData = episodes[type];
     const currentEpisode = episodeTypeData.find(episode => episode.id === Number(episodeID));
-    const currentShow = episodeTypeList.find(show => show.link_url === String(title));
+    const currentEpisodeIndex = episodeTypeData.findIndex(episode => episode.id === Number(episodeID));
+
+    const nextEpisode = episodeTypeData[currentEpisodeIndex + 1];
+    const prevEpisode = episodeTypeData[currentEpisodeIndex - 1];
 
     if (!currentEpisode) return <div style={{
         display: 'flex',
@@ -86,7 +91,7 @@ function Episode() {
             </Head>
             <div>
                 <div>
-                    <VideoPlayer src={currentEpisode.url} title={currentEpisode.title} id={currentEpisode.id} name={currentShow.title} />
+                    <VideoPlayer src={currentEpisode.url} title={currentEpisode.title} id={currentEpisode.id} name={episodes.title} next={nextEpisode} prev={prevEpisode} type={type} link_url={link_url} />
                 </div>
             </div>
         </>

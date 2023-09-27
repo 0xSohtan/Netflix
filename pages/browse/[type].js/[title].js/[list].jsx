@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { fetchEpisodes } from '@/utils/apiHelpers';  // Pfad zu deiner api.js-Datei anpassen
 import { useRequireAuth } from '@/hooks/useRequireAuth';
+import fetchDataFromFirestore from '@/utils/firebaseHelper';
 import styles from '@/styles/Home.module.css'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -21,16 +21,21 @@ export default function List() {
     const { type, title } = router.query;
 
     useEffect(() => {
-        fetchEpisodes()
-            .then(data => {
-                setEpisodes(data);
+
+        if (!type) return;
+
+        const getData = async () => {
+            const video = await fetchDataFromFirestore(type, "detectiv-conan");
+
+            if (video) {
+                setEpisodes(video)
                 setLoading(false);
-            })
-            .catch(error => {
-                console.error('Fehler beim Abrufen der Episoden.');
-                setLoading(false);
-            });
-    }, []);
+            }
+        };
+
+        getData();
+
+    }, [type]);
 
     if (loading) return <div style={{
         display: 'flex',
@@ -40,7 +45,7 @@ export default function List() {
         height: '100vh'
     }}>Lade Episoden...</div>;
 
-    const Item = episodes[type][0][type];
+    const Item = episodes[type];
 
     function truncateTitle(title, maxLength = 30) {
         if (title.length <= maxLength) return title;
@@ -50,8 +55,8 @@ export default function List() {
     return (
         <>
             <Head>
-                <title>{episodes[type][0].title}</title>
-                <meta name="description" content={episodes[type][0].description} />
+                <title>{episodes.title}</title>
+                <meta name="description" content={episodes.description} />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 {/* <link rel="icon" href="/favicon.ico" /> */}
             </Head>

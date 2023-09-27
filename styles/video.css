@@ -15,6 +15,7 @@
   width: 5%;
   text-align: left;
 }
+
 .controlsTime_right {
   width: 5%;
   text-align: right;
@@ -54,7 +55,28 @@
   align-items: center;
 }
 
+.next_button {
+  padding: 10px 10px;
+  font-size: 1rem;
+  background: #e50914;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  margin: 10px 10px;
+  cursor: pointer;
+  transition: 0.1s ease;
+}
+
+.next_button:hover {
+  background: #c40812;
+}
+
 .video_controls_container .controls button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: none;
   border: none;
   color: inherit;
