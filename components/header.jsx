@@ -71,11 +71,16 @@ export default function Header() {
                                 <li className={HeaderStyles.navLinks}>
                                     <Link href="/browse/movies/list" onClick={toggleMenu}>Filme</Link>
                                 </li>
+                                <li className={HeaderStyles.navLinks}>
+                                    <Link href={'/browse/search'} onClick={toggleMenu}>
+                                        <p>Suche</p>
+                                    </Link>
+                                </li>
                             </ul>
                             <ul>
                                 <li className={HeaderStyles.navLinks}>
                                     <Link href={`/user/${userID}`} onClick={toggleMenu} style={{ display: 'flex', alignItems: 'center' }}>
-                                        <Image src={userImage || userPicture} width={50} height={50} alt="Profile" className={HeaderStyles.profile_picture}/>
+                                        <Image src={userImage || userPicture} width={50} height={50} alt="Profile" className={HeaderStyles.profile_picture} />
                                     </Link>
                                 </li>
                                 <li className={HeaderStyles.navLinks}>
