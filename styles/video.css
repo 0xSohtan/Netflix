@@ -219,3 +219,27 @@
 .timeline-slider::-moz-range-progress {
   background: #555;
 }
+
+
+
+/* Mobile */
+
+@media screen and (max-width: 480px) {
+
+  .video_info {
+    display: none;
+  }
+
+  .video_controls_container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: white;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 150ms ease-in-out;
+    padding: 10px 10px;
+  }
+
+}

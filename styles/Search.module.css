@@ -58,3 +58,51 @@
     color: #fff;
     font-size: 2rem;
 }
+
+@media screen and (max-width: 991px) {
+
+    .episodeGrid {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(3, 1fr);
+        /* 6 Folgen in einer Reihe */
+        gap: 0.1rem;
+        /* Abstand zwischen den Folgen */
+        margin: 0px 0px;
+    }
+
+}
+
+@media screen and (max-width: 480px) {
+    
+    .episodeGrid {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+        /* 6 Folgen in einer Reihe */
+        gap: 0.1rem;
+        /* Abstand zwischen den Folgen */
+        margin: 0px 0px;
+    }
+    
+    .episodeCard {
+        display: inline-block;
+        background-color: #141414;
+        color: white;
+        border-radius: 8px;
+        overflow: hidden;
+        transition: transform 0.3s;
+        margin: 5px 5px;
+    }
+    
+    .episodeCard:hover {
+        transform: scale(1.01);
+    }
+    
+    .episodeImage {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+}

@@ -1,0 +1,101 @@
+.videoForm {
+    border-radius: 4px;
+    padding: 70px;
+    width: 100%;
+}
+
+.inputBlock input {
+    height: 100%;
+    flex: 1;
+    background-color: #333;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1rem;
+    padding: 0 20px;
+}
+
+.videoForm input:is(:focus, :valid) {
+    background: #444;
+    padding: 16px 20px;
+}
+
+.radioBlock {
+    margin-bottom: 30px;
+}
+
+.buttonBlock {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    width: 100%;
+}
+
+.inputBlock {
+    display: flex;
+    justify-content: space-between;
+    gap: .5rem;
+}
+
+.videoForm button {
+    width: 48%;
+    padding: 16px 0;
+    font-size: 1rem;
+    background: #e50914;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: 0.1s ease;
+}
+
+@media screen and (max-width: 1111px) {
+
+    .inputBlock input {
+        height: 100%;
+        background-color: #333;
+        border: none;
+        outline: none;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 1rem;
+        padding: 0 20px;
+    }
+
+    .videoForm input:is(:focus, :valid) {
+        background: #444;
+        padding: 16px 20px;
+    }
+
+    .buttonBlock {
+        display: flex;
+        flex-direction: column;
+        margin-top: 50px;
+        width: 100%;
+        gap: .5rem;
+    }
+
+    .inputBlock {
+        display: flex;
+        flex-direction: column;
+        gap: .5rem;
+    }
+
+    .videoForm button {
+        width: 100%;
+        padding: 16px 0;
+        font-size: 1rem;
+        background: #e50914;
+        color: #fff;
+        font-weight: 500;
+        border-radius: 4px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        transition: 0.1s ease;
+    }
+
+}

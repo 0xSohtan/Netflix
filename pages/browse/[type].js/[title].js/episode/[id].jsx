@@ -6,6 +6,7 @@ import VideoPlayer from '@/components/VideoPlayer';
 import Head from 'next/head';
 import firebase from '@/utils/firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import Loading from '@/components/Loading';
 
 function Episode() {
 
@@ -45,13 +46,9 @@ function Episode() {
 
     }, [type, link_url]);
 
-    if (loading) return <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        height: '100vh'
-    }}>Lade Episoden...</div>;
+    if (loading) return <>
+        <Loading />
+    </>;
 
     // if (user && !user.emailVerified) {
     //     return (

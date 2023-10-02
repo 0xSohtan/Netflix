@@ -9,6 +9,7 @@ import firebase from '@/utils/firebase'
 import { getAuth, onAuthStateChanged, signOut, sendEmailVerification, deleteUser, updateProfile } from 'firebase/auth';
 import toast, { Toaster } from 'react-hot-toast';
 import userPicture from '@/public/User.png'
+import Loading from '@/components/Loading';
 
 export default function UserProfile() {
 
@@ -21,7 +22,6 @@ export default function UserProfile() {
     const auth = getAuth(firebase);
     const router = useRouter();
     const { userID } = router.query;
-    // const moviesList = collection(db, "movies");
 
     const avatars = [
         'https://shdw-drive.genesysgo.net/DdMHdxd8NyWWrHKwMUhp6TxEEyyY4pE3ZUbe4pxEp8iC/Agasa.png',
@@ -33,19 +33,6 @@ export default function UserProfile() {
     ]
 
     useEffect(() => {
-
-        // const getList = async () => {
-        //     try {
-        //         const data = await getDocs(moviesList);
-        //         const filteredData = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-        //         const movies = filteredData[0].movies
-        //         console.log(filteredData)
-        //     } catch (err) {
-        //         console.error(err)
-        //     }
-        // };
-
-        // getList()
 
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setAuthChecked(true);
@@ -133,13 +120,9 @@ export default function UserProfile() {
     }
 
     if (!authChecked) {
-        return <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            height: '100vh'
-        }}>Lade...</div>; // Sie können hier jede Ladeanzeige anzeigen, die Sie möchten
+        return <>
+            <Loading />
+        </>; // Sie können hier jede Ladeanzeige anzeigen, die Sie möchten
     }
 
     return (
@@ -156,7 +139,7 @@ export default function UserProfile() {
                     <>
                         <div className={userStyles.modal}>
                             <div>
-                                <h2 style={{ textAlign: 'center' , marginBottom: 40 }}>Wähle dein Profilbild aus!</h2>
+                                <h2 style={{ textAlign: 'center', marginBottom: 40 }}>Wähle dein Profilbild aus!</h2>
                                 <div className={userStyles.imageOption}>
                                     {avatars.map((avatar, index) => (
                                         <div key={index} onClick={() => changeProfilePicture(avatar)} className={userStyles.option}>

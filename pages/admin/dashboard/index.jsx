@@ -4,7 +4,9 @@ import { doc, collection, getDocs, updateDoc, arrayUnion } from '@firebase/fires
 import { useEffect } from 'react';
 import { useRequireAuth } from '@/hooks/useRequireAuth';
 import { useState } from 'react';
+import Header from '@/components/header';
 import toast, { Toaster } from 'react-hot-toast';
+import styles from '@/styles/Admin.module.css';
 
 export default function AdminDashboard() {
 
@@ -30,8 +32,10 @@ export default function AdminDashboard() {
             const movies = filteredData[0][`${selectedOption}`];
             console.log(filteredData);
             console.log(movies);
+            toast.success("Check die Console!");
         } catch (err) {
             console.error(err);
+            toast.error("Fehler beim Console.log!");
         }
     };
 
@@ -41,6 +45,7 @@ export default function AdminDashboard() {
         id: newId,
         thumbnail: newThumbnail,
         url: newUrl,
+        type: selectedOption,
     }
 
     const onSubmitVideo = async (event) => {
@@ -67,21 +72,31 @@ export default function AdminDashboard() {
                 <meta name="description" content="Admin Dashboard" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
-            <form onSubmit={onSubmitVideo}>
-                <div>
-                    <input type='radio' value={'movies'} checked={selectedOption === 'movies'} onChange={e => setSelectedOption(e.target.value)} />
-                    <label>Movie</label>
-                    <input type='radio' value={'series'} checked={selectedOption === 'series'} onChange={e => setSelectedOption(e.target.value)} />
-                    <label>Serie</label>
-                </div>
-                <input placeholder='title' onChange={e => setNewTitle(e.target.value)} />
-                <input placeholder='description' onChange={e => setNewDescription(e.target.value)} />
-                <input placeholder='id' type='number' max='1000' min='0' onChange={(e) => setNewId(Number(e.target.value))} />
-                <input placeholder='thumbnail' onChange={e => setNewThumbnail(e.target.value)} />
-                <input placeholder='url' onChange={e => setNewUrl(e.target.value)} />
-                <button type='submit'>Submit</button>
-            </form>
-            <button onClick={getList}>Test</button>
+
+            <Header />
+
+            <div style={{ marginTop: 100 }}>
+                <form onSubmit={onSubmitVideo} className={styles.videoForm}>
+                    <div className={styles.radioBlock}>
+                        <input type='radio' value={'movies'} checked={selectedOption === 'movies'} onChange={e => setSelectedOption(e.target.value)} />
+                        <label>Movie</label>
+                        <input type='radio' value={'series'} checked={selectedOption === 'series'} onChange={e => setSelectedOption(e.target.value)} />
+                        <label>Serie</label>
+                    </div>
+                    <div className={styles.inputBlock}>
+                        <input placeholder='Title' onChange={e => setNewTitle(e.target.value)} />
+                        <input placeholder='Description' onChange={e => setNewDescription(e.target.value)} />
+                        <input placeholder='ID' type='number' max='1000' min='0' onChange={(e) => setNewId(Number(e.target.value))} />
+                        <input placeholder='Thumbnail' onChange={e => setNewThumbnail(e.target.value)} />
+                        <input placeholder='URL' onChange={e => setNewUrl(e.target.value)} />
+                    </div>
+                    <div className={styles.buttonBlock}>
+                        <button type='submit'>Submit</button>
+                        <button onClick={getList}>Test</button>
+                    </div>
+                </form>
+            </div>
+
             <Toaster />
         </>
     )

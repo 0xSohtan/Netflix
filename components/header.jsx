@@ -84,7 +84,7 @@ export default function Header() {
                                     </Link>
                                 </li>
                                 <li className={HeaderStyles.navLinks}>
-                                    <p style={{ textAlign: 'center' }} className={HeaderStyles.versionText}>Beta v.{version}</p>
+                                    <p  style={{ textAlign: 'center' }} className={HeaderStyles.versionText}>Beta v.{version}</p>
                                 </li>
                             </ul>
                         </div>

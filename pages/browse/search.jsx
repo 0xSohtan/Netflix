@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { db } from '@/utils/firebase';
 import { collection, getDocs } from '@firebase/firestore';
-import Link from 'next/link';
-import Image from 'next/image';
+import Card from '@/components/Card';
 import Head from 'next/head';
 import styles from '@/styles/Search.module.css';
 import Header from '@/components/header';
-import Episode from '@/public/Episodes.jpeg';
 
 export default function Search() {
     const [searchTerm, setSearchTerm] = useState('');
@@ -58,11 +56,6 @@ export default function Search() {
         }
     }, [searchTerm]);
 
-    function truncateTitle(title, maxLength = 30) {
-        if (title.length <= maxLength) return title;
-        return title.slice(0, maxLength) + '...';
-    }
-
     return (
         <>
             <Head>
@@ -85,17 +78,7 @@ export default function Search() {
                         <div className={styles.episodeGrid}>
                             {results.map(item => (
                                 <li key={`${item.title}-${item.id}`} className={styles.episodeCard}>
-                                    <Link href={`/browse/${item.type}/detectiv-conan/episode/${item.id}`}>
-                                        <Image
-                                            src={item.thumbnail || Episode}
-                                            className={styles.episodeImage}
-                                            alt='Episode'
-                                            width={300}
-                                            height={400}
-                                            priority
-                                        />
-                                        <p title={item.title}>{truncateTitle(item.title)}</p>
-                                    </Link>
+                                    <Card title={item.title} thumbnail={item.thumbnail} url={`/browse/${item.type}/detectiv-conan/episode/${item.id}`} />
                                 </li>
                             ))}
                         </div>
