@@ -108,7 +108,7 @@ export default function Browse() {
               key={episode.id}
               className={styles.episodeCard}
             >
-              <Card title={episode.title} id={episode.id} thumbnail={episode.thumbnail} name={infos.link_url} type={infos.type} />
+              <Card title={episode.title} thumbnail={episode.thumbnail} url={`/browse/${infos.type}/${infos.link_url}/episode/${episode.id}`} />
             </li>
           ))}
         </div>
